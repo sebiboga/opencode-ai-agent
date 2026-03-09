@@ -1,0 +1,72 @@
+name: OpenCode AI Agent
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Prompt for OpenCode to execute'
+        required: true
+        type: string
+
+jobs:
+  run-opencode:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Chrome
+        run: |
+          wget -q -O /tmp/google-chrome-keyring https://dl-ssl.google.com/linux/linux_signing_key.pub
+          sudo mkdir -p /etc/apt/keyrings
+          sudo cp /tmp/google-chrome-keyring /etc/apt/keyrings/google-chrome.asc
+          echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.asc] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Start Chrome with remote debugging
+        run: |
+          google-chrome --remote-debugging-port=9222 --headless --no-sandbox --disable-dev-shm-usage &
+          sleep 3
+
+      - name: Install OpenCode
+        run: |
+          npm install -g opencode-ai
+
+      - name: Copy opencode.json
+        run: |
+          cp opencode.json opencode.json.bak 2>/dev/null || true
+          cat > opencode.json << 'EOF'
+          {
+            "$schema": "https://opencode.ai/config.json",
+            "model": "opencode/big-pickle",
+            "mcp": {
+              "chrome-devtools": {
+                "type": "local",
+                "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--browser-url=http://127.0.0.1:9222"]
+              },
+              "external-directory": {
+                "type": "local",
+                "command": ["npx", "-y", "external-directory-mcp@latest"]
+              }
+            }
+          }
+          EOF
+
+      - name: Run OpenCode with prompt
+        run: |
+          opencode run "${{ github.event.inputs.prompt }}"
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git diff --staged --quiet || git commit -m "Update INSTRUCTIONS.md and AGENTS.md"
+          git push
