@@ -8,7 +8,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, please send an email to: **sebi.boga@gmail.com**
+If you discover a security vulnerability, please send an email to: **sebitestb@gmail.com**
 
 Please include:
 - Description of the vulnerability
