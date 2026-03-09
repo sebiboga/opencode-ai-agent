@@ -6,6 +6,13 @@ This file contains agent-specific configurations and instructions.
 
 OpenCode AI agent executes the user-provided prompt and learns from the execution.
 
+## Committing Changes
+
+When changes are made that need to be pushed to the repository:
+1. Commit changes with a descriptive message
+2. Push to the remote repository
+3. Use the user's email for git config if provided
+
 ## peviitor_core Data Models
 
 ### Job Model Schema
