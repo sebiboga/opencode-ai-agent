@@ -27,16 +27,7 @@
   - validate.js - Test single URL
   - scrape.js - Batch process all URLs (12s delay between requests)
 
-## Test Results (March 10, 2026)
-Successfully validated job:
-- URL: https://www.olx.ro/oferta/loc-de-munca/angajam-coordonator-vanzari-braila-IDjcR8F.html
-- Company: PROVIDENT FINANCIAL ROMANIA INSTITUTIE FINANCIARA NEBANCARA SA
-- CIF: 18346091 (found via listafirme.ro)
-- Salary: 3300RON - 4500RON
-- Workmode: on-site
-- Tags: sales, coordinator, customer-service, financial-services, entry-level, permis-auto
-
-## Next Steps
+## Session Notes (March 10, 2026)
 1. Set credentials and test with one URL
 2. Run batch scrape to validate all 2746 URLs
 3. Extract salary, workmode, tags from active jobs
