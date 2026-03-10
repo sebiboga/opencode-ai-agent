@@ -16,7 +16,6 @@
 7. Always verify Solr updates by querying the job after updating
 
 ## Session Notes (March 10, 2026)
-- Project location: C:\sebi\opencode_ai\olx-scraper-validator
 - Chrome must be running with:
   ```cmd
   chrome --remote-debugging-port=9222 --user-data-dir="%TEMP%\chrome-debug-profile"
