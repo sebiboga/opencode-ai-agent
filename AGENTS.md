@@ -9,6 +9,7 @@ OpenCode AI agent executes the user-provided prompt and learns from the executio
 ## Additional Documentation
 
 - **SOLR.md** - Instructions for connecting to SOLR (https://solr.peviitor.ro). Read this file when working with SOLR. Credentials are stored in GitHub Secrets (`SOLR_USER`, `SOLR_PASSWD`).
+- **OLX.md** - Instructions for handling OLX website scraping, CAPTCHA handling, and job validation rules.
 
 ## Committing Changes
 

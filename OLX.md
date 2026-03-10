@@ -1,0 +1,44 @@
+# OLX Website Handling
+
+## CAPTCHA Handling
+- **IMPORTANT**: NEVER try to bypass CAPTCHA
+- Use Chrome DevTools MCP for real browser
+- Wait 10-15 seconds between requests to mimic human behavior
+- If CAPTCHA encountered → Log and skip, continue with next URL
+
+## Important Rules
+1. Always use Chrome DevTools (not HTTP) for OLX pages
+2. Never reveal credentials in output (use placeholders)
+3. Company name = Legal name (from Trade Register), not brand
+4. CIF is unique identifier - same company name in different counties = different CIF
+5. Tags: lowercase, no diacritics, max 10
+6. Salary format: "MIN-MAX CURRENCY" (e.g., "3300RON - 4500RON")
+7. Always verify Solr updates by querying the job after updating
+
+## Session Notes (March 10, 2026)
+- Project location: C:\sebi\opencode_ai\olx-scraper-validator
+- Chrome must be running with:
+  ```cmd
+  chrome --remote-debugging-port=9222 --user-data-dir="%TEMP%\chrome-debug-profile"
+  ```
+- Solr credentials: solr:SolrRocks
+- Playwright installed for browser automation
+- Scripts:
+  - validate.js - Test single URL
+  - scrape.js - Batch process all URLs (12s delay between requests)
+
+## Test Results (March 10, 2026)
+Successfully validated job:
+- URL: https://www.olx.ro/oferta/loc-de-munca/angajam-coordonator-vanzari-braila-IDjcR8F.html
+- Company: PROVIDENT FINANCIAL ROMANIA INSTITUTIE FINANCIARA NEBANCARA SA
+- CIF: 18346091 (found via listafirme.ro)
+- Salary: 3300RON - 4500RON
+- Workmode: on-site
+- Tags: sales, coordinator, customer-service, financial-services, entry-level, permis-auto
+
+## Next Steps
+1. Set credentials and test with one URL
+2. Run batch scrape to validate all 2746 URLs
+3. Extract salary, workmode, tags from active jobs
+4. Find CIF for companies (search: "COMPANY NAME CIF Romania")
+5. Update company core in Solr
