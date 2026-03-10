@@ -64,6 +64,9 @@ jobs:
           EOF
 
       - name: Run OpenCode with prompt
+        env:
+          SOLR_USER: ${{ secrets.SOLR_USER }}
+          SOLR_PASSWD: ${{ secrets.SOLR_PASSWD }}
         run: |
           opencode run "${{ github.event.inputs.prompt }}"
 

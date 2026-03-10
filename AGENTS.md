@@ -6,6 +6,10 @@ This file contains agent-specific configurations and instructions.
 
 OpenCode AI agent executes the user-provided prompt and learns from the execution.
 
+## Additional Documentation
+
+- **SOLR.md** - Instructions for connecting to SOLR (https://solr.peviitor.ro). Read this file when working with SOLR. Credentials are stored in GitHub Secrets (`SOLR_USER`, `SOLR_PASSWD`).
+
 ## Committing Changes
 
 When changes are made that need to be pushed to the repository:
